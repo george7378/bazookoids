@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>dbc233d5-5910-4aa5-a2c5-532e3d42aa92</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>BazookoidsCore</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BazookoidsGame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Simulation\Levitator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Simulation\RigidBodyState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Simulation\Vehicle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility\Camera.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility\Enums\CameraMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility\Globals.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility\PointLight.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility\Sphere.cs" />
+  </ItemGroup>
+</Project>
