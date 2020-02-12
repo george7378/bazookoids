@@ -1,3 +1,3 @@
 Copyright (c) 2020 George Kristiansen
 
-This software may not be distributed, either free or for commercial gain, without written permission from the copyright holder.
+This software shall not be redistributed free or for commercial gain, either modified or in its current state, without written permission from the copyright holder.
