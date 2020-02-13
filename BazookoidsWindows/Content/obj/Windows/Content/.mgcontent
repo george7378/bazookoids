@@ -4,16 +4,16 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Victor/Documents/Visual Studio 2017/Projects/Bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Effects/ArenaEffect.fx</File>
-    <File>C:/Users/Victor/Documents/Visual Studio 2017/Projects/Bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Effects/SkyboxEffect.fx</File>
-    <File>C:/Users/Victor/Documents/Visual Studio 2017/Projects/Bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Effects/VehicleEffect.fx</File>
-    <File>C:/Users/Victor/Documents/Visual Studio 2017/Projects/Bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Models/Arena.x</File>
-    <File>C:/Users/Victor/Documents/Visual Studio 2017/Projects/Bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Models/Skybox.x</File>
-    <File>C:/Users/Victor/Documents/Visual Studio 2017/Projects/Bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Models/Vehicle.x</File>
-    <File>C:/Users/Victor/Documents/Visual Studio 2017/Projects/Bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Textures/arena.jpg</File>
-    <File>C:/Users/Victor/Documents/Visual Studio 2017/Projects/Bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Textures/arenaFloor.jpg</File>
-    <File>C:/Users/Victor/Documents/Visual Studio 2017/Projects/Bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Textures/arenaFloorNormal.jpg</File>
-    <File>C:/Users/Victor/Documents/Visual Studio 2017/Projects/Bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Textures/arenaNormal.jpg</File>
+    <File>C:/Users/Victor/Desktop/bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Effects/ArenaEffect.fx</File>
+    <File>C:/Users/Victor/Desktop/bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Effects/SkyboxEffect.fx</File>
+    <File>C:/Users/Victor/Desktop/bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Effects/VehicleEffect.fx</File>
+    <File>C:/Users/Victor/Desktop/bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Models/Arena.x</File>
+    <File>C:/Users/Victor/Desktop/bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Models/Skybox.x</File>
+    <File>C:/Users/Victor/Desktop/bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Models/Vehicle.x</File>
+    <File>C:/Users/Victor/Desktop/bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Textures/arena.jpg</File>
+    <File>C:/Users/Victor/Desktop/bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Textures/arenaFloor.jpg</File>
+    <File>C:/Users/Victor/Desktop/bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Textures/arenaFloorNormal.jpg</File>
+    <File>C:/Users/Victor/Desktop/bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Textures/arenaNormal.jpg</File>
   </SourceFiles>
   <DestFiles>
     <File>Effects/ArenaEffect.fx</File>

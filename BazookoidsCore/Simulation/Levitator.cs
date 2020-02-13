@@ -21,8 +21,6 @@ namespace BazookoidsCore.Simulation
 
         public float PowerForce { get; set; }
 
-        public float BrakeForce { get; set; }
-
         public float TurningForce { get; set; }
 
         #endregion

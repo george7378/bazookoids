@@ -46,6 +46,8 @@ namespace BazookoidsCore
 		private Model _vehicleModel, _arenaModel;
 		private Model _skyboxModel;
 
+		private Random _random;
+
 		private Vector3 _gravity;
 
 		#endregion
@@ -139,7 +141,20 @@ namespace BazookoidsCore
 		private void DrawScene(Camera camera)
 		{
 			// Vehicles
-			foreach (Vehicle vehicle in _vehicles)
+			List<Vehicle> vehiclesToDraw = _vehicles.ToList();
+			if (camera.Mode == CameraMode.Onboard)
+			{
+				if (camera == _cameras[0])
+				{
+					vehiclesToDraw.RemoveAt(0);
+				}
+				else if (camera == _cameras[1])
+				{
+					vehiclesToDraw.RemoveAt(1);
+				}
+			}
+
+			foreach (Vehicle vehicle in vehiclesToDraw)
 			{
 				Matrix vehicleWorldMatrix = vehicle.State.Orientation*Matrix.CreateTranslation(vehicle.State.Position);
 
@@ -250,7 +265,7 @@ namespace BazookoidsCore
 								vehicle.Force += levitatorContactForce;
 								vehicle.Torque += Vector3.Cross(levitatorLocalPosition, levitatorContactForce);
 
-								Vector3 levitatorDriveForce = vehicle.Mass*((levitator.PowerForce - levitator.BrakeForce)*projectedForwardDirection + levitator.TurningForce*projectedRightDirection);
+								Vector3 levitatorDriveForce = vehicle.Mass*(levitator.PowerForce*projectedForwardDirection + levitator.TurningForce*projectedRightDirection);
 
 								vehicle.Force += levitatorDriveForce;
 								vehicle.Torque += Vector3.Cross(levitatorLocalPosition, levitatorDriveForce);
@@ -294,6 +309,21 @@ namespace BazookoidsCore
 			{
 				vehicle.ApplyPhysics(timeDelta);
 			}
+		}
+
+		private void ResetGame()
+		{
+			_vehicles[0].State.Position = new Vector3((float)(40*(2*_random.NextDouble() - 1)), 3, (float)(10 + 30*_random.NextDouble()));
+			_vehicles[0].State.Velocity = Vector3.Zero;
+			_vehicles[0].State.Orientation = Matrix.CreateFromYawPitchRoll((float)(2*Math.PI*_random.NextDouble()), (float)(0.2f*(2*_random.NextDouble() - 1)), (float)(0.2f*(2*_random.NextDouble() - 1)));
+			_vehicles[0].State.AngularMomentum = Vector3.Zero;
+			_vehicles[0].State.AngularVelocity = Vector3.Zero;
+
+			_vehicles[1].State.Position = new Vector3((float)(40*(2*_random.NextDouble() - 1)), 3, (float)-(10 + 30*_random.NextDouble()));
+			_vehicles[1].State.Velocity = Vector3.Zero;
+			_vehicles[1].State.Orientation = Matrix.CreateFromYawPitchRoll((float)(2*Math.PI*_random.NextDouble()), (float)(0.2f*(2*_random.NextDouble() - 1)), (float)(0.2f*(2*_random.NextDouble() - 1)));
+			_vehicles[1].State.AngularMomentum = Vector3.Zero;
+			_vehicles[1].State.AngularVelocity = Vector3.Zero;
 		}
 
 		#endregion
@@ -373,11 +403,6 @@ namespace BazookoidsCore
 					new Levitator(new Vector3(1.3f, -0.9f, 2.3f), 0.3f),
 					new Levitator(new Vector3(-1.3f, -0.9f, 2.3f), 0.3f)
 				},
-				State = new RigidBodyState()
-				{
-					Position = new Vector3(-5, 3, 5),
-					Orientation = Matrix.CreateFromYawPitchRoll(0.2f, 0.1f, 0.4f)
-				},
 				HighlightColour = new Vector3(0.7f, 0.2f, 0.2f)
 			};
 
@@ -394,11 +419,6 @@ namespace BazookoidsCore
 					new Levitator(new Vector3(1.3f, -0.9f, 2.3f), 0.3f),
 					new Levitator(new Vector3(-1.3f, -0.9f, 2.3f), 0.3f)
 				},
-				State = new RigidBodyState()
-				{
-					Position = new Vector3(5, 3, 5),
-					Orientation = Matrix.CreateFromYawPitchRoll(0, -0.4f, 0)
-				},
 				HighlightColour = new Vector3(0.7f, 0.7f, 0)
 			};
 
@@ -413,7 +433,11 @@ namespace BazookoidsCore
 				new Plane(-Vector3.UnitZ, -50)
 			};
 
+			_random = new Random();
+
 			_gravity = new Vector3(0, -9.81f, 0);
+
+			ResetGame();
 
 			base.Initialize();
 		}
@@ -456,31 +480,31 @@ namespace BazookoidsCore
 		{
 			KeyboardState newKeyboardState = Keyboard.GetState();
 
-			_vehicles[0].Levitators[0].PowerForce = newKeyboardState.IsKeyDown(Keys.W) ? Vehicle.PowerForceMagnitude : 0;
-			_vehicles[0].Levitators[0].BrakeForce = newKeyboardState.IsKeyDown(Keys.S) ? Vehicle.BrakeForceMagnitude : 0;
-			_vehicles[0].Levitators[0].TurningForce = newKeyboardState.IsKeyDown(Keys.D) ? Vehicle.FrontTurningForceMagnitude : newKeyboardState.IsKeyDown(Keys.A) ? -Vehicle.FrontTurningForceMagnitude : 0;
-			_vehicles[0].Levitators[1].PowerForce = newKeyboardState.IsKeyDown(Keys.W) ? Vehicle.PowerForceMagnitude : 0;
-			_vehicles[0].Levitators[1].BrakeForce = newKeyboardState.IsKeyDown(Keys.S) ? Vehicle.BrakeForceMagnitude : 0;
-			_vehicles[0].Levitators[1].TurningForce = newKeyboardState.IsKeyDown(Keys.D) ? Vehicle.FrontTurningForceMagnitude : newKeyboardState.IsKeyDown(Keys.A) ? -Vehicle.FrontTurningForceMagnitude : 0;
-			_vehicles[0].Levitators[2].PowerForce = newKeyboardState.IsKeyDown(Keys.W) ? Vehicle.PowerForceMagnitude : 0;
-			_vehicles[0].Levitators[2].BrakeForce = newKeyboardState.IsKeyDown(Keys.S) ? Vehicle.BrakeForceMagnitude : 0;
-			_vehicles[0].Levitators[2].TurningForce = newKeyboardState.IsKeyDown(Keys.D) ? -Vehicle.RearTurningForceMagnitude : newKeyboardState.IsKeyDown(Keys.A) ? Vehicle.RearTurningForceMagnitude : 0;
-			_vehicles[0].Levitators[3].PowerForce = newKeyboardState.IsKeyDown(Keys.W) ? Vehicle.PowerForceMagnitude : 0;
-			_vehicles[0].Levitators[3].BrakeForce = newKeyboardState.IsKeyDown(Keys.S) ? Vehicle.BrakeForceMagnitude : 0;
-			_vehicles[0].Levitators[3].TurningForce = newKeyboardState.IsKeyDown(Keys.D) ? -Vehicle.RearTurningForceMagnitude : newKeyboardState.IsKeyDown(Keys.A) ? Vehicle.RearTurningForceMagnitude : 0;
+			float redVehiclePowerForce = newKeyboardState.IsKeyDown(Keys.W) ? Vehicle.PowerForceMagnitude : newKeyboardState.IsKeyDown(Keys.S) ? -Vehicle.PowerForceMagnitude : 0;
+			float redVehicleFrontTurningForce = newKeyboardState.IsKeyDown(Keys.D) ? Vehicle.TurningForceMagnitude : newKeyboardState.IsKeyDown(Keys.A) ? -Vehicle.TurningForceMagnitude : 0;
+			float redVehicleRearTurningForce = -redVehicleFrontTurningForce;
 
-			_vehicles[1].Levitators[0].PowerForce = newKeyboardState.IsKeyDown(Keys.Up) ? Vehicle.PowerForceMagnitude : 0;
-			_vehicles[1].Levitators[0].BrakeForce = newKeyboardState.IsKeyDown(Keys.Down) ? Vehicle.BrakeForceMagnitude : 0;
-			_vehicles[1].Levitators[0].TurningForce = newKeyboardState.IsKeyDown(Keys.Right) ? Vehicle.FrontTurningForceMagnitude : newKeyboardState.IsKeyDown(Keys.Left) ? -Vehicle.FrontTurningForceMagnitude : 0;
-			_vehicles[1].Levitators[1].PowerForce = newKeyboardState.IsKeyDown(Keys.Up) ? Vehicle.PowerForceMagnitude : 0;
-			_vehicles[1].Levitators[1].BrakeForce = newKeyboardState.IsKeyDown(Keys.Down) ? Vehicle.BrakeForceMagnitude : 0;
-			_vehicles[1].Levitators[1].TurningForce = newKeyboardState.IsKeyDown(Keys.Right) ? Vehicle.FrontTurningForceMagnitude : newKeyboardState.IsKeyDown(Keys.Left) ? -Vehicle.FrontTurningForceMagnitude : 0;
-			_vehicles[1].Levitators[2].PowerForce = newKeyboardState.IsKeyDown(Keys.Up) ? Vehicle.PowerForceMagnitude : 0;
-			_vehicles[1].Levitators[2].BrakeForce = newKeyboardState.IsKeyDown(Keys.Down) ? Vehicle.BrakeForceMagnitude : 0;
-			_vehicles[1].Levitators[2].TurningForce = newKeyboardState.IsKeyDown(Keys.Right) ? -Vehicle.RearTurningForceMagnitude : newKeyboardState.IsKeyDown(Keys.Left) ? Vehicle.RearTurningForceMagnitude : 0;
-			_vehicles[1].Levitators[3].PowerForce = newKeyboardState.IsKeyDown(Keys.Up) ? Vehicle.PowerForceMagnitude : 0;
-			_vehicles[1].Levitators[3].BrakeForce = newKeyboardState.IsKeyDown(Keys.Down) ? Vehicle.BrakeForceMagnitude : 0;
-			_vehicles[1].Levitators[3].TurningForce = newKeyboardState.IsKeyDown(Keys.Right) ? -Vehicle.RearTurningForceMagnitude : newKeyboardState.IsKeyDown(Keys.Left) ? Vehicle.RearTurningForceMagnitude : 0;
+			_vehicles[0].Levitators[0].PowerForce = redVehiclePowerForce;
+			_vehicles[0].Levitators[0].TurningForce = redVehicleFrontTurningForce;
+			_vehicles[0].Levitators[1].PowerForce = redVehiclePowerForce;
+			_vehicles[0].Levitators[1].TurningForce = redVehicleFrontTurningForce;
+			_vehicles[0].Levitators[2].PowerForce = redVehiclePowerForce;
+			_vehicles[0].Levitators[2].TurningForce = redVehicleRearTurningForce;
+			_vehicles[0].Levitators[3].PowerForce = redVehiclePowerForce;
+			_vehicles[0].Levitators[3].TurningForce = redVehicleRearTurningForce;
+
+			float yellowVehiclePowerForce = newKeyboardState.IsKeyDown(Keys.Up) ? Vehicle.PowerForceMagnitude : newKeyboardState.IsKeyDown(Keys.Down) ? -Vehicle.PowerForceMagnitude : 0;
+			float yellowVehicleFrontTurningForce = newKeyboardState.IsKeyDown(Keys.Right) ? Vehicle.TurningForceMagnitude : newKeyboardState.IsKeyDown(Keys.Left) ? -Vehicle.TurningForceMagnitude : 0;
+			float yellowVehicleRearTurningForce = -yellowVehicleFrontTurningForce;
+
+			_vehicles[1].Levitators[0].PowerForce = yellowVehiclePowerForce;
+			_vehicles[1].Levitators[0].TurningForce = yellowVehicleFrontTurningForce;
+			_vehicles[1].Levitators[1].PowerForce = yellowVehiclePowerForce;
+			_vehicles[1].Levitators[1].TurningForce = yellowVehicleFrontTurningForce;
+			_vehicles[1].Levitators[2].PowerForce = yellowVehiclePowerForce;
+			_vehicles[1].Levitators[2].TurningForce = yellowVehicleRearTurningForce;
+			_vehicles[1].Levitators[3].PowerForce = yellowVehiclePowerForce;
+			_vehicles[1].Levitators[3].TurningForce = yellowVehicleRearTurningForce;
 
 			if (_oldKeyboardState.IsKeyDown(Keys.C) && newKeyboardState.IsKeyUp(Keys.C))
 			{
@@ -508,6 +532,11 @@ namespace BazookoidsCore
 						_cameras[1].Mode = CameraMode.Fixed;
 						break;
 				}
+			}
+
+			if (_oldKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyUp(Keys.Space))
+			{
+				ResetGame();
 			}
 
 			UpdatePhysics(gameTime.ElapsedGameTime.Milliseconds/1000.0f);

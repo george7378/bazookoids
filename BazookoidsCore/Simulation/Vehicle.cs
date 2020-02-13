@@ -13,10 +13,8 @@ namespace BazookoidsCore.Simulation
         public const float BodyBoundingSphereReactionForceMultiplier = 30;
         public const float BodyBoundingSphereFrictionForceMultiplier = 0.15f;
 
-        public const float BrakeForceMagnitude = 5;
         public const float PowerForceMagnitude = 10;
-        public const float FrontTurningForceMagnitude = 2;
-        public const float RearTurningForceMagnitude = 2;
+        public const float TurningForceMagnitude = 2;
 
         #endregion
 
@@ -45,6 +43,19 @@ namespace BazookoidsCore.Simulation
         public Vector3 Torque { get; set; }
 
         public Vector3 HighlightColour { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        public Vehicle()
+        {
+            BodyBoundingVertices = new Vector3[] { };
+            BodyBoundingSpheres = new Sphere[] { };
+            Levitators = new Levitator[] { };
+
+            State = new RigidBodyState();
+        }
 
         #endregion
 

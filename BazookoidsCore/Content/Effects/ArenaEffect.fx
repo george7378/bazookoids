@@ -123,7 +123,9 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 		float shadowValue = pow(saturate(dot(normalize(VehiclePositions[i] - LightPosition), lightVectorNormalised)), 128.0f);
 		shadowFactor = shadowValue + shadowFactor*(1.0f - shadowValue);
 	}
-	diffuseLightingFactor *= (1.0f - shadowFactor);
+	float shadowMultiplier = 1.0f - shadowFactor;
+	diffuseLightingFactor *= shadowMultiplier;
+	specularLightingFactor *= shadowMultiplier;
 
 	float4 finalColour = float4(diffuseColour.rgb*(AmbientLightPower + diffuseLightingFactor + specularLightingFactor), diffuseColour.a);
 

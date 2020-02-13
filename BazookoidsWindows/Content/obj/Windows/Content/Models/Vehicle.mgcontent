@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Victor/Documents/Visual Studio 2017/Projects/Bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Models/Vehicle.x</SourceFile>
-  <SourceTime>2020-02-12T11:11:20.309706+00:00</SourceTime>
-  <DestFile>C:/Users/Victor/Documents/Visual Studio 2017/Projects/Bazookoids/BazookoidsWindows/Content/bin/Windows/Content/Models/Vehicle.xnb</DestFile>
-  <DestTime>2020-02-12T11:11:23.4117422+00:00</DestTime>
+  <SourceFile>C:/Users/Victor/Desktop/bazookoids/BazookoidsWindows/Content/../../BazookoidsCore/Content/Models/Vehicle.x</SourceFile>
+  <SourceTime>2020-02-13T10:12:31.6164797+00:00</SourceTime>
+  <DestFile>C:/Users/Victor/Desktop/bazookoids/BazookoidsWindows/Content/bin/Windows/Content/Models/Vehicle.xnb</DestFile>
+  <DestTime>2020-02-13T10:39:35.9868339+00:00</DestTime>
   <Importer>XImporter</Importer>
   <ImporterTime>2018-12-08T16:35:54+00:00</ImporterTime>
   <Processor>ModelProcessor</Processor>
