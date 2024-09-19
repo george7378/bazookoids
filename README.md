@@ -5,5 +5,5 @@ Bazookoids is a basic demo of a simple split-screen two player game which includ
 
 Player one (red vehicle) can move using **WASD**, and can change the camera view using **C**. Player two (yellow vehicle) can move using the **Arrow keys**, and can change the camera view using **N**. Pressing **Space** will reset the game with the vehicles in random starting positions. Have fun!
 
-![Chasing](https://github.com/george7378/bazookoids/blob/master/_img/1.png)
-![Hit by yellow](https://github.com/george7378/bazookoids/blob/master/_img/2.png)
+![Chasing](https://github.com/george7378/bazookoids/blob/master/misc/readme/1.png)
+![Hit by yellow](https://github.com/george7378/bazookoids/blob/master/misc/readme/2.png)
